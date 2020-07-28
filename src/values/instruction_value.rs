@@ -1,3 +1,4 @@
+use llvm_sys::core::{LLVMCountIncoming, LLVMGetIncomingBlock, LLVMGetIncomingValue};
 use either::{Either, Either::{Left, Right}};
 use llvm_sys::core::{LLVMGetAlignment, LLVMSetAlignment, LLVMGetInstructionOpcode, LLVMIsTailCall, LLVMGetPreviousInstruction, LLVMGetNextInstruction, LLVMGetInstructionParent, LLVMInstructionEraseFromParent, LLVMInstructionClone, LLVMSetVolatile, LLVMGetVolatile, LLVMGetNumOperands, LLVMGetOperand, LLVMGetOperandUse, LLVMSetOperand, LLVMValueAsBasicBlock, LLVMIsABasicBlock, LLVMGetICmpPredicate, LLVMGetFCmpPredicate, LLVMIsAAllocaInst, LLVMIsALoadInst, LLVMIsAStoreInst, LLVMGetMetadata, LLVMHasMetadata, LLVMSetMetadata};
 #[llvm_versions(3.8..=latest)]
@@ -245,7 +246,7 @@ impl<'ctx> InstructionValue<'ctx> {
         }
         Ok(unsafe { LLVMSetVolatile(self.as_value_ref(), volatile as i32) })
     }
-    
+
     // SubTypes: Only apply to memory access instructions
     /// Sets whether or not a memory access instruction is volatile.
     #[llvm_versions(10.0..=latest)]
@@ -626,6 +627,27 @@ impl<'ctx> InstructionValue<'ctx> {
         } else {
             None
         }
+    }
+
+    pub fn count_phi_incoming(self) -> u32 {
+        unsafe {
+            LLVMCountIncoming(self.as_value_ref())
+        }
+    }
+
+    pub fn get_phi_incoming(self, index: u32) -> Option<(BasicValueEnum<'ctx>, BasicBlock<'ctx>)> {
+        if index >= self.count_phi_incoming() {
+            return None;
+        }
+
+        let basic_block = unsafe {
+            LLVMGetIncomingBlock(self.as_value_ref(), index)
+        };
+        let value = unsafe {
+            LLVMGetIncomingValue(self.as_value_ref(), index)
+        };
+
+        Some((BasicValueEnum::new(value), BasicBlock::new(basic_block).expect("Invalid BasicBlock")))
     }
 
     /// Determines whether or not this `Instruction` has any associated metadata.
