@@ -13,7 +13,7 @@ use crate::values::{BasicValue, BasicValueEnum, FloatValue, InstructionValue, Po
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct IntValue<'ctx> {
-    int_value: Value<'ctx>,
+    pub int_value: Value<'ctx>,
 }
 
 impl<'ctx> IntValue<'ctx> {

@@ -39,6 +39,7 @@ pub mod targets;
 pub mod types;
 pub mod values;
 
+pub use llvm_sys;
 use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate, LLVMVisibility, LLVMThreadLocalMode, LLVMDLLStorageClass, LLVMAtomicOrdering, LLVMAtomicRMWBinOp};
 
 use std::convert::TryFrom;

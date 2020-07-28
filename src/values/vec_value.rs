@@ -10,7 +10,7 @@ use crate::values::{BasicValueEnum, BasicValue, InstructionValue, Value, IntValu
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct VectorValue<'ctx> {
-    vec_value: Value<'ctx>,
+    pub vec_value: Value<'ctx>,
 }
 
 impl<'ctx> VectorValue<'ctx> {

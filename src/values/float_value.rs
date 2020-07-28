@@ -11,7 +11,7 @@ use crate::values::{InstructionValue, IntValue, Value};
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct FloatValue<'ctx> {
-    float_value: Value<'ctx>,
+    pub float_value: Value<'ctx>,
 }
 
 impl<'ctx> FloatValue<'ctx> {

@@ -103,7 +103,7 @@ pub enum InstructionOpcode {
 
 #[derive(Debug, PartialEq, Eq, Copy, Hash)]
 pub struct InstructionValue<'ctx> {
-    instruction_value: Value<'ctx>,
+    pub instruction_value: Value<'ctx>,
 }
 
 impl<'ctx> InstructionValue<'ctx> {

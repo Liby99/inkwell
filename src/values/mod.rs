@@ -49,8 +49,8 @@ use std::fmt;
 use std::marker::PhantomData;
 
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
-struct Value<'ctx> {
-    value: LLVMValueRef,
+pub struct Value<'ctx> {
+    pub value: LLVMValueRef,
     _marker: PhantomData<&'ctx ()>,
 }
 

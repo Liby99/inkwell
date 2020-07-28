@@ -12,7 +12,8 @@ use crate::values::{Value, InstructionValue};
 /// An `ArrayValue` is a block of contiguous constants or variables.
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
 pub struct ArrayValue<'ctx> {
-    array_value: Value<'ctx>,
+    /// VALUE
+    pub array_value: Value<'ctx>,
 }
 
 impl<'ctx> ArrayValue<'ctx> {

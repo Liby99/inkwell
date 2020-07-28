@@ -9,7 +9,7 @@ use crate::values::{InstructionValue, Value};
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct StructValue<'ctx> {
-    struct_value: Value<'ctx>,
+    pub struct_value: Value<'ctx>,
 }
 
 impl<'ctx> StructValue<'ctx> {

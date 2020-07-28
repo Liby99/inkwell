@@ -25,7 +25,7 @@ use crate::values::{BasicValueEnum, BasicValue, PointerValue, Value};
 // compress this into a PointerValue<Global> type
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct GlobalValue<'ctx> {
-    global_value: Value<'ctx>,
+    pub global_value: Value<'ctx>,
 }
 
 impl<'ctx> GlobalValue<'ctx> {

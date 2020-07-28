@@ -13,7 +13,7 @@ use crate::values::{BasicValue, BasicValueEnum, InstructionValue, Value};
 /// the Phi's containing basic block.
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct PhiValue<'ctx> {
-    phi_value: Value<'ctx>,
+    pub phi_value: Value<'ctx>,
 }
 
 impl<'ctx> PhiValue<'ctx> {

@@ -9,7 +9,7 @@ use crate::values::{AsValueRef, InstructionValue, IntValue, Value};
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct PointerValue<'ctx> {
-    ptr_value: Value<'ctx>,
+    pub ptr_value: Value<'ctx>,
 }
 
 impl<'ctx> PointerValue<'ctx> {

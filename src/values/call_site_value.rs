@@ -15,7 +15,7 @@ use crate::values::FunctionValue;
 ///
 /// This struct may be removed in the future in favor of an `InstructionValue<CallSite>` type.
 #[derive(Debug, PartialEq, Clone, Copy, Hash)]
-pub struct CallSiteValue<'ctx>(Value<'ctx>);
+pub struct CallSiteValue<'ctx>(pub Value<'ctx>);
 
 impl<'ctx> CallSiteValue<'ctx> {
     pub(crate) fn new(value: LLVMValueRef) -> Self {

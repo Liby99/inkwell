@@ -22,7 +22,7 @@ use crate::values::{BasicValueEnum, GlobalValue, Value};
 
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
 pub struct FunctionValue<'ctx> {
-    fn_value: Value<'ctx>,
+    pub fn_value: Value<'ctx>,
 }
 
 impl<'ctx> FunctionValue<'ctx> {

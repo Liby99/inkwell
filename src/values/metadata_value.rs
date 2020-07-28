@@ -41,7 +41,7 @@ pub const FIRST_CUSTOM_METADATA_KIND_ID: u32 = 30;
 
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
 pub struct MetadataValue<'ctx> {
-    metadata_value: Value<'ctx>,
+    pub metadata_value: Value<'ctx>,
 }
 
 impl<'ctx> MetadataValue<'ctx> {
