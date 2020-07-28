@@ -185,9 +185,9 @@ fn test_target_data() {
     // #[cfg(not(any(feature = "llvm3-6", feature = "llvm3-7", feature = "llvm3-8")))]
     // assert_eq!(module.get_data_layout().as_str(), &*CString::new("%").unwrap());
 
-    module.set_data_layout(&data_layout);
+    // module.set_data_layout(&data_layout);
 
-    assert_eq!(*module.get_data_layout(), data_layout);
+    // assert_eq!(*module.get_data_layout(), data_layout);
 
     let i32_type = context.i32_type();
     let i64_type = context.i64_type();

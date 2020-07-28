@@ -28,7 +28,7 @@ fn ptr_sized_int_type<'ctx>(
 #[llvm_versions(4.0..=latest)]
 fn apply_target_to_module<'ctx>(target_machine: &TargetMachine, module: &Module) {
     module.set_triple(&target_machine.get_triple());
-    module.set_data_layout(&target_machine.get_target_data().get_data_layout());
+    // module.set_data_layout(&target_machine.get_target_data().get_data_layout());
 }
 
 #[llvm_versions(3.6..7.0)]

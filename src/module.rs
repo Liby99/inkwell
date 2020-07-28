@@ -151,7 +151,7 @@ pub enum Linkage {
 /// The underlying module will be disposed when dropping this object.
 #[derive(Debug, PartialEq, Eq)]
 pub struct Module<'ctx> {
-    data_layout: RefCell<Option<DataLayout>>,
+    // data_layout: RefCell<Option<DataLayout>>,
     pub(crate) module: Cell<LLVMModuleRef>,
     pub(crate) owned_by_ee: RefCell<Option<ExecutionEngine<'ctx>>>,
     _marker: PhantomData<&'ctx Context>,
@@ -164,7 +164,7 @@ impl<'ctx> Module<'ctx> {
         Module {
             module: Cell::new(module),
             owned_by_ee: RefCell::new(None),
-            data_layout: RefCell::new(Some(Module::get_borrowed_data_layout(module))),
+            // data_layout: RefCell::new(Some(Module::get_borrowed_data_layout(module))),
             _marker: PhantomData,
         }
     }
@@ -686,61 +686,61 @@ impl<'ctx> Module<'ctx> {
         DataLayout::new_borrowed(data_layout)
     }
 
-    /// Gets a smart pointer to the `DataLayout` belonging to a particular `Module`.
-    ///
-    /// # Example
-    ///
-    /// ```no_run
-    /// use inkwell::OptimizationLevel;
-    /// use inkwell::context::Context;
-    /// use inkwell::targets::{InitializationConfig, Target};
-    ///
-    /// Target::initialize_native(&InitializationConfig::default()).expect("Failed to initialize native target");
-    ///
-    /// let context = Context::create();
-    /// let module = context.create_module("sum");
-    /// let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None).unwrap();
-    /// let target_data = execution_engine.get_target_data();
-    /// let data_layout = target_data.get_data_layout();
-    ///
-    /// module.set_data_layout(&data_layout);
-    ///
-    /// assert_eq!(*module.get_data_layout(), data_layout);
-    /// ```
-    pub fn get_data_layout(&self) -> Ref<DataLayout> {
-        Ref::map(self.data_layout.borrow(), |l| l.as_ref().expect("DataLayout should always exist until Drop"))
-    }
+    // /// Gets a smart pointer to the `DataLayout` belonging to a particular `Module`.
+    // ///
+    // /// # Example
+    // ///
+    // /// ```no_run
+    // /// use inkwell::OptimizationLevel;
+    // /// use inkwell::context::Context;
+    // /// use inkwell::targets::{InitializationConfig, Target};
+    // ///
+    // /// Target::initialize_native(&InitializationConfig::default()).expect("Failed to initialize native target");
+    // ///
+    // /// let context = Context::create();
+    // /// let module = context.create_module("sum");
+    // /// let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None).unwrap();
+    // /// let target_data = execution_engine.get_target_data();
+    // /// let data_layout = target_data.get_data_layout();
+    // ///
+    // /// module.set_data_layout(&data_layout);
+    // ///
+    // /// assert_eq!(*module.get_data_layout(), data_layout);
+    // /// ```
+    // pub fn get_data_layout(&self) -> Ref<DataLayout> {
+    //     Ref::map(self.data_layout.borrow(), |l| l.as_ref().expect("DataLayout should always exist until Drop"))
+    // }
 
-    // REVIEW: Ensure the replaced string ptr still gets cleaned up by the module (I think it does)
-    // valgrind might come in handy once non jemalloc allocators stabilize
-    /// Sets the `DataLayout` for a particular `Module`.
-    ///
-    /// # Example
-    ///
-    /// ```no_run
-    /// use inkwell::OptimizationLevel;
-    /// use inkwell::context::Context;
-    /// use inkwell::targets::{InitializationConfig, Target};
-    ///
-    /// Target::initialize_native(&InitializationConfig::default()).expect("Failed to initialize native target");
-    ///
-    /// let context = Context::create();
-    /// let module = context.create_module("sum");
-    /// let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None).unwrap();
-    /// let target_data = execution_engine.get_target_data();
-    /// let data_layout = target_data.get_data_layout();
-    ///
-    /// module.set_data_layout(&data_layout);
-    ///
-    /// assert_eq!(*module.get_data_layout(), data_layout);
-    /// ```
-    pub fn set_data_layout(&self, data_layout: &DataLayout) {
-        unsafe {
-            LLVMSetDataLayout(self.module.get(), data_layout.as_ptr());
-        }
+    // // REVIEW: Ensure the replaced string ptr still gets cleaned up by the module (I think it does)
+    // // valgrind might come in handy once non jemalloc allocators stabilize
+    // /// Sets the `DataLayout` for a particular `Module`.
+    // ///
+    // /// # Example
+    // ///
+    // /// ```no_run
+    // /// use inkwell::OptimizationLevel;
+    // /// use inkwell::context::Context;
+    // /// use inkwell::targets::{InitializationConfig, Target};
+    // ///
+    // /// Target::initialize_native(&InitializationConfig::default()).expect("Failed to initialize native target");
+    // ///
+    // /// let context = Context::create();
+    // /// let module = context.create_module("sum");
+    // /// let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None).unwrap();
+    // /// let target_data = execution_engine.get_target_data();
+    // /// let data_layout = target_data.get_data_layout();
+    // ///
+    // /// module.set_data_layout(&data_layout);
+    // ///
+    // /// assert_eq!(*module.get_data_layout(), data_layout);
+    // /// ```
+    // pub fn set_data_layout(&self, data_layout: &DataLayout) {
+    //     unsafe {
+    //         LLVMSetDataLayout(self.module.get(), data_layout.as_ptr());
+    //     }
 
-        *self.data_layout.borrow_mut() = Some(Module::get_borrowed_data_layout(self.module.get()));
-    }
+    //     *self.data_layout.borrow_mut() = Some(Module::get_borrowed_data_layout(self.module.get()));
+    // }
 
     /// Prints the content of the `Module` to stderr.
     pub fn print_to_stderr(&self) {
